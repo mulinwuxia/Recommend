@@ -4,14 +4,14 @@
 		<meta charset="utf-8">
 		<title>开源许可证推合规推荐后台管理</title>
 
-		<link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="../static/css/admin.css"/>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-		
-		<script src="../static/bootstrap/js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../static/bootstrap/js/popper.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../static/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-		
+		<link rel="stylesheet" type="text/css" href="../../static/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/admin.css"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"/>
+
+		<script src="../../static/bootstrap/js/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/bootstrap/js/popper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+
 		<script>
 			$(function() {
 			    $(".menu-item").click(function() {
@@ -38,7 +38,7 @@
 			<!-- logo 点击logo图片能跳转到首页 -->
 			<div class="logo">
 				<a href="#">
-					<img src="../static/images/logo.png">
+					<img src="../../static/images/logo.png">
 				</a>
 			</div>
 			<div class="header-title">
@@ -49,36 +49,36 @@
 				<div class="dropdown">
 				  <a class="menu-item-user dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 				    <span class="menu-item-img">
-						<img src="../static/images/touxiang.png" >
+						<img src="../../static/images/touxiang.png" >
 					</span>
 					<span class="menu-item-name">管理员</span>
 				  </a>
-				
+
 				  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				   
+
 				    <li><a class="dropdown-item" href="#">退出登录</a></li>
 				  </ul>
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<!-- 左边菜单栏 -->
 		<div class="left-menu nav nav-pills flex-column" role="tablist">
-		
+
 			<div class="menu-title">账号管理</div>
-			<div class="menu-item active menu-item-active" aria-controls="level" role="tab" data-bs-toggle="tab" data-bs-target="#level"><img src="../static/images/level.png">权限</div>
-			<div class="menu-item" aria-controls="user" role="tab" data-bs-toggle="tab" data-bs-target="#user"><img src="../static/images/user_grey.png">用户</div>
-			
+			<div class="menu-item active menu-item-active" aria-controls="level" role="tab" data-bs-toggle="tab" data-bs-target="#level"><img src="../../static/images/level.png">权限</div>
+			<div class="menu-item" aria-controls="user" role="tab" data-bs-toggle="tab" data-bs-target="#user"><img src="../../static/images/user_grey.png">用户</div>
+
 			<div class="menu-title">系统管理</div>
-			<div class="menu-item" aria-controls="license" role="tab" data-bs-toggle="tab" data-bs-target="#license"><img src="../static/images/license_grey.png">许可证</div>
-			
-			
+			<div class="menu-item" aria-controls="license" role="tab" data-bs-toggle="tab" data-bs-target="#license"><img src="../../static/images/license_grey.png">许可证</div>
+
+
 		</div>
-	
+
 		<!-- 右边内容区 -->
 		<div class="right-content">
-			
+
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="level">
 					<div class="data-div">
@@ -97,37 +97,26 @@
 							</div>
 						</div>
 						<div class="tablebody">
-							<div class="row">
-								<div class="col-2 ">
-									1
-								</div>
-								<div class="col-3">
-									管理员
-								</div>
-								<div class="col-5">
-									管理员具有超年权限
-								</div>
-								<div class="col-2">
-									<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#changeChar">修改</button>
-									<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteChar">删除</button>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-2 ">
-									2
-								</div>
-								<div class="col-3">
-									普通用户
-								</div>
-								<div class="col-5">
-									可以查看信息
-								</div>
-								<div class="col-2">
-									<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#changeChar">修改</button>
-									<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteChar">删除</button>
-									
-								</div>
-							</div>
+							{% if roles %}
+								{% for role in roles %}
+									<div class="row">
+
+										<div class="col-2 ">
+											{{role.roleid}}
+										</div>
+										<div class="col-3">
+											{{role.rolename}}
+										</div>
+										<div class="col-5">
+											{{role.roledescription}}
+										</div>
+										<div class="col-2">
+											<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#changeChar">修改</button>
+											<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteChar">删除</button>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
 							<!--增加权限弹出窗口-->
 							<div class="modal fade" id="addChar" role="dialog" aria-labelledby="gridSystemModalLabel">
 							    <div class="modal-dialog" role="document">
@@ -135,7 +124,7 @@
 							            <div class="modal-header">
 											<h4 class="modal-title" >添加权限</h4>
 							                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							                
+
 							            </div>
 							            <div class="modal-body">
 							                <div class="container-fluid">
@@ -158,12 +147,12 @@
 							                                <input type="" class="form-control input-sm duiqi" placeholder="">
 							                            </div>
 							                        </div>
-							
+
 							                    </form>
 							                </div>
 							            </div>
 							            <div class="modal-footer">
-							                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 							                <button type="button" class="btn btn-xs btn-green">保 存</button>
 							            </div>
 							        </div>
@@ -172,7 +161,7 @@
 							    <!-- /.modal-dialog -->
 							</div>
 							<!-- /.modal -->
-							
+
 							<!--修改权限弹出窗口-->
 							<div class="modal fade" id="changeChar" role="dialog" aria-labelledby="gridSystemModalLabel">
 							    <div class="modal-dialog" role="document">
@@ -180,7 +169,7 @@
 							            <div class="modal-header">
 											<h4 class="modal-title" >修改权限</h4>
 							                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							                
+
 							            </div>
 							            <div class="modal-body">
 							                <div class="container-fluid">
@@ -197,13 +186,13 @@
 							                                <textarea class="form-control input-sm duiqi"></textarea>
 							                            </div>
 							                        </div>
-							                        
-							
+
+
 							                    </form>
 							                </div>
 							            </div>
 							            <div class="modal-footer">
-							                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 							                <button type="button" class="btn btn-xs btn-green">修 改</button>
 							            </div>
 							        </div>
@@ -212,7 +201,7 @@
 							    <!-- /.modal-dialog -->
 							</div>
 							<!-- /.modal -->
-							
+
 							<!--弹出删除权限警告窗口-->
 							<div class="modal fade" id="deleteChar" role="dialog" aria-labelledby="gridSystemModalLabel">
 							    <div class="modal-dialog" role="document">
@@ -220,7 +209,7 @@
 							            <div class="modal-header">
 											<h4 class="modal-title" >提示</h4>
 							                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							                
+
 							            </div>
 							            <div class="modal-body">
 							                <div class="container-fluid">
@@ -228,7 +217,7 @@
 							                </div>
 							            </div>
 							            <div class="modal-footer">
-							                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 							                <button type="button" class="btn btn-xs btn-danger">确 认</button>
 							            </div>
 							        </div>
@@ -237,31 +226,39 @@
 							    <!-- /.modal-dialog -->
 							</div>
 							<!-- /.modal -->
-					
+
 						</div>
-						
+
 						<!--页码块-->
+						{{ pagination.info }}
+						{{ pagination.links }}
 						<footer class="footer">
-						    <nav aria-label="Page navigation">
-						      <ul class="pagination">
-						        <li class="page-item">
-						          <a class="page-link" href="#" aria-label="Previous">
-						            <span aria-hidden="true">&laquo;</span>
-						          </a>
-						        </li>
-						        <li class="page-item"><a class="page-link" href="#">1</a></li>
-						        <li class="page-item"><a class="page-link" href="#">2</a></li>
-						        <li class="page-item"><a class="page-link" href="#">3</a></li>
-						        <li class="page-item">
-						          <a class="page-link" href="#" aria-label="Next">
-						            <span aria-hidden="true">&raquo;</span>
-						          </a>
-						        </li>
-						      </ul>
-						    </nav>
+<!--						    <nav aria-label="Page navigation">-->
+<!--						      <ul class="pagination">-->
+<!--						        <li class="page-item">-->
+<!--						          <a class="page-link" href="#" aria-label="Previous">-->
+<!--						            <span aria-hidden="true">&laquo;</span>-->
+<!--						          </a>-->
+<!--						        </li>-->
+<!--						        <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--						        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--						        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--						        <li class="page-item">-->
+<!--						          <a class="page-link" href="#" aria-label="Next">-->
+<!--						            <span aria-hidden="true">&raquo;</span>-->
+<!--						          </a>-->
+<!--						        </li>-->
+<!--						      </ul>-->
+<!--						    </nav>-->
+							{% if pagination %}
+								<div>
+
+								</div>
+							{% endif %}
+
 						</footer>
-						
-					
+
+
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="user">
@@ -273,7 +270,7 @@
 					        <input type="text"  placeholder="输入文字搜索">
 					        <button class="btn">查询 </button>
 					    </div>
-					    
+
 					</div>
 					<div class="data-div">
 					    <div class="row tableHeader">
@@ -297,7 +294,7 @@
 					        </div>
 					    </div>
 					    <div class="tablebody">
-					
+
 					        <div class="row">
 					            <div class="col-2 ">
 					                1
@@ -319,9 +316,9 @@
 					                <button class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteUser">删除</button>
 					            </div>
 					        </div>
-					
+
 					    </div>
-						
+
 						<!--弹出添加用户窗口-->
 						<div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel">
 						    <div class="modal-dialog" role="document">
@@ -329,7 +326,7 @@
 						            <div class="modal-header">
 										<h4 class="modal-title">添加用户</h4>
 						                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						                
+
 						            </div>
 						            <div class="modal-body">
 						                <div class="container-fluid">
@@ -346,7 +343,7 @@
 						                                <input type="" class="form-control input-sm duiqi" placeholder="">
 						                            </div>
 						                        </div>
-						                        
+
 						                        <div class="form-group">
 						                            <label class="col-3 control-label">权限：</label>
 						                            <div class="col-8">
@@ -356,12 +353,12 @@
 						                                    <input type="radio" name="situation">普通用户</label>
 						                            </div>
 						                        </div>
-						                        
+
 						                    </form>
 						                </div>
 						            </div>
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 						                <button type="button" class="btn btn-xs btn-green">保 存</button>
 						            </div>
 						        </div>
@@ -370,7 +367,7 @@
 						    <!-- /.modal-dialog -->
 						</div>
 						<!-- /.modal -->
-						
+
 						<!--弹出修改用户窗口-->
 						<div class="modal fade" id="reviseUser" role="dialog" aria-labelledby="gridSystemModalLabel">
 						    <div class="modal-dialog" role="document">
@@ -378,7 +375,7 @@
 						            <div class="modal-header">
 										<h4 class="modal-title" >修改用户</h4>
 						                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						                
+
 						            </div>
 						            <div class="modal-body">
 						                <div class="container-fluid">
@@ -395,7 +392,7 @@
 						                                <input type="" class="form-control input-sm duiqi" placeholder="">
 						                            </div>
 						                        </div>
-						                       
+
 						                        <div class="form-group">
 						                            <label  class="col-3 control-label">权限：</label>
 						                            <div class="col-8">
@@ -405,12 +402,12 @@
 						                                    <input type="radio" name="situation">普通用户</label>
 						                            </div>
 						                        </div>
-												
+
 						                    </form>
 						                </div>
 						            </div>
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 						                <button type="button" class="btn btn-xs btn-green">修 改</button>
 						            </div>
 						        </div>
@@ -419,7 +416,7 @@
 						    <!-- /.modal-dialog -->
 						</div>
 						<!-- /.modal -->
-						
+
 						<!--弹出删除用户警告窗口-->
 						<div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
 						    <div class="modal-dialog" role="document">
@@ -427,7 +424,7 @@
 						            <div class="modal-header">
 										<h4 class="modal-title">提示</h4>
 						                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						                
+
 						            </div>
 						            <div class="modal-body">
 						                <div class="container-fluid">
@@ -435,7 +432,7 @@
 						                </div>
 						            </div>
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 						                <button type="button" class="btn  btn-xs btn-danger">确 定</button>
 						            </div>
 						        </div>
@@ -444,7 +441,7 @@
 						    <!-- /.modal-dialog -->
 						</div>
 						<!-- /.modal -->
-					
+
 					</div>
 					<!--页码块-->
 					<footer class="footer">
@@ -466,7 +463,7 @@
 					      </ul>
 					    </nav>
 					</footer>
-					
+
 				</div>
 				<div role="tabpanel" class="tab-pane" id="license">
 					<div class="check-box row">
@@ -476,10 +473,10 @@
 					    <div class="col-4 search ">
 					        <input type="text"  placeholder="输入文字搜索">
 					        <button class="btn">查询 </button>
-					    </div>					    
-						
+					    </div>
+
 					</div>
-					
+
 					<div class="data-div">
 						<div class="row tableHeader">
 						    <div class="col-2 ">
@@ -491,10 +488,10 @@
 						    <div class="col-6">
 						        内容
 						    </div>
-						    
+
 						</div>
 						<div class="tablebody">
-											
+
 						    <div class="row">
 						        <div class="col-2 ">
 						            1
@@ -506,25 +503,25 @@
 									<p>
 										Zero-Clause BSD (0BSD)
 										SPDX short identifier: 0BSD
-										
+
 										Note: Despite its name, Zero-Clause BSD is an alteration of the ISC license, and is not textually derived from licenses in the BSD family. Zero-Clause BSD was originally approved under the name "Free Public License 1.0.0".
-										
+
 										Zero-Clause BSD
 										Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.
-										
+
 										THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-									
+
 									</p>
 								</div>
-						    
+
 						        <div class="col-2">
 						            <button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#reviseLicense">修改</button>
 						            <button class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteLicense">删除</button>
 						        </div>
 						    </div>
-											
+
 						</div>
-						
+
 						<!--弹出修改许可证窗口-->
 						<div class="modal fade" id="reviseLicense" role="dialog" aria-labelledby="gridSystemModalLabel">
 						    <div class="modal-dialog" role="document">
@@ -532,7 +529,7 @@
 						            <div class="modal-header">
 										<h4 class="modal-title">修改许可证</h4>
 						                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						                
+
 						            </div>
 						            <div class="modal-body">
 						                <div class="container-fluid">
@@ -548,13 +545,13 @@
 						                            <div class="col-8 ">
 						                                <input type="" class="form-control input-sm duiqi" placeholder="">
 						                            </div>
-						                        </div>						                    
-												
+						                        </div>
+
 						                    </form>
 						                </div>
 						            </div>
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 						                <button type="button" class="btn btn-xs btn-green">修 改</button>
 						            </div>
 						        </div>
@@ -563,7 +560,7 @@
 						    <!-- /.modal-dialog -->
 						</div>
 						<!-- /.modal -->
-						
+
 						<!--弹出删除许可证警告窗口-->
 						<div class="modal fade" id="deleteLicense" role="dialog" aria-labelledby="gridSystemModalLabel">
 						    <div class="modal-dialog" role="document">
@@ -571,7 +568,7 @@
 						            <div class="modal-header">
 										<h4 class="modal-title" >提示</h4>
 						                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						                
+
 						            </div>
 						            <div class="modal-body">
 						                <div class="container-fluid">
@@ -579,7 +576,7 @@
 						                </div>
 						            </div>
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-xs btn-white" data-bs-dismiss="modal">取 消</button>
+
 						                <button type="button" class="btn  btn-xs btn-danger">确 定</button>
 						            </div>
 						        </div>

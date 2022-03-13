@@ -23,6 +23,13 @@ button{
 	}	
 }
 
+.error-alert{
+    position: relative;
+    padding: 1rem 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
 .header{
 	padding-left: 0!important;
 	width: 100%;

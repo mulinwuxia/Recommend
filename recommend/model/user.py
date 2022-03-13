@@ -9,13 +9,5 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=user_role, backref='us')
 
 
-
-
-    def __init__(self, id, username, password, roles):
-        self.id = id
-        self.username = username
-        self.password = password
-        self.roles = roles
-
     def __repr__(self):
         return '<User %r>' % self.username
