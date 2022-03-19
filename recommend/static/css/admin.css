@@ -81,7 +81,6 @@ button{
 }
 
 
-
 .left-menu{
 	background-color: #9fafc8;
 	float: left;
@@ -93,7 +92,10 @@ button{
 .left-menu img{
 	width: 20px;
 	margin-right: 5px;
-	margin-left: 20px;
+}
+
+.left-menu .nav-link{
+	color: #e1e5e8;
 }
 
 .left-menu .menu-title{
@@ -103,11 +105,6 @@ button{
 	border-bottom: #e1e5e8;
 	color: ;
 }
-
-.left-menu .menu-item{
-	margin-bottom: 5px;
-}
-
 .left-menu .menu-item-active{
 	background-color: #7987a2;
 	border-right: 4px solid #bbc3cd;
@@ -152,6 +149,16 @@ button{
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+
+.modal{
+	color: #000000;
+}
+
+.modal-title{
+	font-weight: 700;
+	
+}
+
 .footer {
 	margin-top: 20px;
 	float: right;
@@ -165,6 +172,11 @@ button{
 
 .footer a:hover{
 	color: #7987a2;
+}
+
+.footer .page-item.active .page-link{
+    background-color: #7987a2;
+    border-color: #7987a2;
 }
 
 .check-box{

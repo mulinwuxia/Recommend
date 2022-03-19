@@ -1,5 +1,6 @@
 from flask_login import login_required, login_user, logout_user
 from flask_paginate import Pagination, get_page_parameter
+from sqlalchemy import or_
 
 from recommend.model.user import User
 from recommend.model.role import Role
@@ -16,49 +17,105 @@ def index():
 def register_index(registerMessage):
     return render_template('index.html', registerMessage=registerMessage)
 
+# 管理员界面-展示权限管理rolelist
 @app.route('/admin/?<userid>/rolelist')
 def admin_rolelist(userid):
-    #每页数量
-    PER_PAGE = 1
-    #总共的数量
-    total = db.session.query(Role).count()
-    #获取页面，默认为第一页
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    #每页开始位置
-    start = (page-1)*PER_PAGE
-    #每页结束位置
-    end = start + PER_PAGE
 
-    pagination = Pagination(bs_version=5, page=page, total=total, per_page=PER_PAGE)
-    roles = db.session.query(Role).slice(start, end)
+    page = int(request.args.get('page', 1))  # 当前页数
+    per_page = int(request.args.get('per_page', 5))  # 设置每页数量
+    pagination = Role.query.paginate(page, per_page, error_out=False)
+    roles = pagination.items  # 获取当前页数据
 
     datas = {
         'userid': userid,
         'pagination': pagination,
-        'roles': roles
+        'roles': roles,
     }
 
     print(datas)
-    print(pagination.links)
+
+    return render_template('admin_rolelist.html', **datas)
+
+@app.route('/admin/?<userid>/rolelist/addrole', methods=['GET','POST'])
+def admin_addrole(userid):
+
+    #添加新角色role
 
 
-    return render_template('admin.html', **datas)
 
-@app.route('/admin/?<userid>/userlist')
+    return redirect(url_for('admin_rolelist', userid=userid))
+
+@app.route('/admin/?<userid>/rolelist/updaterole', methods=['GET','POST'])
+def admin_updaterole(userid):
+
+    print('修改权限')
+
+    # 更新角色信息
+    if request.method == 'POST':
+        roleid = request.form['roleid']
+        rolename = request.form['rolename']
+        roledescription = request.form['roledescription']
+
+        # print(roleid)
+        print(rolename)
+        print(roledescription)
+
+        update_role = Role.query.filter_by(roleid=roleid).first()
+        update_role.rolename = rolename
+        update_role.roledescription = roledescription
+
+        db.session.commit()
+
+        return redirect(url_for('admin_rolelist', userid=userid))
+
+    return redirect(url_for('admin_rolelist', userid=userid))
+
+@app.route('/admin/?<userid>/rolelist/deleterole/?<roleid>', methods=['GET', 'POST'])
+def admin_deleterole(userid, roleid):
+    # 删除角色role
+
+    print('删除角色role')
+
+    delete_role = Role.query.filter_by(roleid=roleid).first()
+
+    # 删除多对多关系表user_role中关于delete_role的信息
+    if delete_role.users:
+        for u in delete_role.users:
+            delete_role.users.remove(u)
+        db.session.commit()
+
+    db.session.delete(delete_role)
+    db.session.commit()
+
+    return redirect(url_for('admin_rolelist', userid=userid))
+
+
+def getUserListPagination(keyword):
+    page = int(request.args.get('page', 1))  # 当前页数
+    per_page = int(request.args.get('per_page', 5))  # 设置每页数量
+    if keyword==None:
+        pagination = User.query.paginate(page, per_page, error_out=False)
+    else:
+
+        pagination = User.query.filter(
+            or_(User.id.like("%" + keyword + "%") if keyword is not None else "",
+            User.username.like("%" + keyword + "%") if keyword is not None else "")
+        ).paginate(page, per_page, error_out=False)
+
+    return pagination
+
+
+# 管理员界面-展示用户管理userlist
+@app.route('/admin/?<userid>/userlist', methods=['GET', 'POST'])
 def admin_userlist(userid):
-    # 每页数量
-    PER_PAGE = 5
-    # 总共的数量
-    total = db.session.query(User).count()
-    # 获取页面，默认为第一页
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    # 每页开始位置
-    start = (page - 1) * PER_PAGE
-    # 每页结束位置
-    end = start + PER_PAGE
 
-    pagination = Pagination(bs_version=5, page=page, total=total)
-    users = db.session.query(User).slice(start, end)
+    print('用户显示')
+
+    pagination = getUserListPagination(None)
+    users = pagination.items  # 获取当前页数据
+
+    print(pagination)
+    print(users)
 
     datas = {
         'userid': userid,
@@ -66,9 +123,99 @@ def admin_userlist(userid):
         'users': users
     }
 
-    print(pagination.links)
+    return render_template('admin_userlist.html', **datas)
 
-    return render_template('admin.html',datas=datas)
+
+@app.route('/admin/?<userid>/userlist/searchuser', methods=['GET', 'POST'])
+def admin_searchuser(userid):
+
+    print('搜索用户')
+    if request.method=='POST':
+        keyword = request.form['keyword']
+        print('keyword:')
+        print(keyword)
+
+        pagination = getUserListPagination(keyword)
+        users = pagination.items  # 获取当前页数据
+
+        print(pagination)
+        print('users:')
+        print(users)
+
+        datas = {
+            'userid': userid,
+            'pagination': pagination,
+            'users': users
+        }
+
+        return render_template('admin_userlist.html', **datas)
+    return redirect(url_for('admin_userlist', userid=userid))
+
+@app.route('/admin/?<userid>/userlist/adduser', methods=['GET', 'POST'])
+def admin_adduser(userid):
+    # 添加用户
+
+    if request.method=='POST':
+        username=request.form['username']
+        password=request.form['password']
+        role=Role.query.filter_by(rolename=request.form['rolename']).first()
+
+        user=User(username=username,password=password, roles=[role])
+
+        db.session.add(user)
+        db.session.commit()
+
+    return redirect(url_for('admin_userlist', userid=userid))
+
+@app.route('/admin/?<userid>/userlist/updateuser', methods=['GET', 'POST'])
+def admin_updateuser(userid):
+    # 更新用户user
+    print('修改用户')
+
+    # 更新角色信息
+    if request.method == 'POST':
+        userid = request.form['userid']
+        username = request.form['username']
+        password = request.form['password']
+
+        update_user = User.query.filter_by(id=userid).first()
+        update_user.username = username
+        update_user.password = password
+
+        print(update_user.username)
+
+        db.session.commit()
+
+        return redirect(url_for('admin_userlist', userid=userid))
+
+
+    return redirect(url_for('admin_userlist', userid=userid))
+
+@app.route('/admin/?<userid>/userlist/deleteuser/?<id>', methods=['GET', 'POST'])
+def admin_deleteuser(userid, id):
+    # 删除角色role
+
+    print('删除用户user')
+
+    delete_user = User.query.filter_by(id=id).first()
+    print(delete_user.roles)
+
+    # 删除多对多表user_role中关于delete_user的信息
+    if delete_user.roles:
+        for r in delete_user.roles:
+            delete_user.roles.remove(r)
+        db.session.commit()
+
+    db.session.delete(delete_user)
+    db.session.commit()
+
+    return redirect(url_for('admin_userlist', userid=userid))
+
+
+@app.route('/admin/?<userid>/licenselist')
+def admin_licenselist(userid):
+    return render_template('admin_licenselist.html', userid=userid)
+
 
 @app.route('/user/?<userid>')
 def user(userid):
