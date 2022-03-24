@@ -1,10 +1,8 @@
 from flask_login import login_required, login_user, logout_user
-from flask_paginate import Pagination, get_page_parameter
 from sqlalchemy import or_
 
 from recommend.model.user import User
 from recommend.model.role import Role
-import os
 
 from recommend import app, db
 from flask import request,render_template,flash,abort,url_for,redirect,session,Flask,g
@@ -90,18 +88,84 @@ def admin_deleterole(userid, roleid):
     return redirect(url_for('admin_rolelist', userid=userid))
 
 
-def getUserListPagination(keyword):
+# 获取userlist的paginate
+def getUserListPagination():
     page = int(request.args.get('page', 1))  # 当前页数
     per_page = int(request.args.get('per_page', 5))  # 设置每页数量
-    if keyword==None:
-        pagination = User.query.paginate(page, per_page, error_out=False)
+    pagination = User.query.paginate(page, per_page, error_out=False)
+    return pagination
+
+def getSearchUserListPagination(idCondition, id, roleCondition, username):
+    page = int(request.args.get('page', 1))  # 当前页数
+    per_page = int(request.args.get('per_page', 5))  # 设置每页数量
+
+    print('idCondition, id, roleCondition, username')
+    print(idCondition, id, roleCondition, username)
+    filterConditions = []
+
+    if id:
+        print('id is not None')
+        if idCondition == -1:
+            print('idCondition == -1')
+            if roleCondition != -1:
+                print('roleConditon != 1')
+                role = Role.query.filter_by(rolename=roleCondition).first()
+
+                print(role)
+                filterConditions.append(User.roles.contains(role))
+                if username:
+                    print('username is not None')
+                    filterConditions.append(User.username.like('%' + username + '%'))
+            else:
+                if username:
+                    print('username is not None')
+                    filterConditions.append(User.username.like('%' + username + '%'))
+
+        elif idCondition == 0:
+            print('idCondition == 0')
+            filterConditions.append(User.id > id)
+            if roleCondition != -1:
+                print('roleConditon != 1')
+                role = Role.query.filter_by(rolename=roleCondition).first()
+                filterConditions.append(User.roles.contains(role))
+                if username:
+                    print('username is not None')
+                    filterConditions.append(User.username.like('%' + username + '%'))
+            else:
+                if username:
+                    print('username is not None')
+                    filterConditions.append(User.username.like('%' + username + '%'))
+        elif idCondition == 1:
+            print('idCondition == 1')
+            filterConditions.append(User.id == id)
+        else:
+            filterConditions.append(User.id < id)
+            if roleCondition != -1:
+                print('roleConditon != 1')
+                role = Role.query.filter_by(rolename=roleCondition).first()
+                filterConditions.append(User.roles.contains(role))
+                if username:
+                    print('username is not None')
+                    filterConditions.append(User.username.like('%' + username + '%'))
+            else:
+                if username:
+                    print('username is not None')
+                    filterConditions.append(User.username.like('%' + username + '%'))
     else:
-
-        pagination = User.query.filter(
-            or_(User.id.like("%" + keyword + "%") if keyword is not None else "",
-            User.username.like("%" + keyword + "%") if keyword is not None else "")
-        ).paginate(page, per_page, error_out=False)
-
+        print('id is None')
+        if roleCondition != -1:
+            print('roleConditon != 1')
+            role = Role.query.filter_by(rolename=roleCondition).first()
+            filterConditions.append(User.roles.contains(role))
+            if username:
+                print('username is not None')
+                filterConditions.append(User.username.like('%'+username+'%'))
+        else:
+            if username:
+                print('username is not None')
+                filterConditions.append(User.username.like('%'+username+'%'))
+    print(filterConditions)
+    pagination = User.query.filter(*filterConditions).paginate(page, per_page, error_out=False)
     return pagination
 
 
@@ -111,7 +175,7 @@ def admin_userlist(userid):
 
     print('用户显示')
 
-    pagination = getUserListPagination(None)
+    pagination = getUserListPagination()
     users = pagination.items  # 获取当前页数据
 
     print(pagination)
@@ -130,12 +194,15 @@ def admin_userlist(userid):
 def admin_searchuser(userid):
 
     print('搜索用户')
-    if request.method=='POST':
-        keyword = request.form['keyword']
-        print('keyword:')
-        print(keyword)
+    if request.method == 'POST':
+        idCondition = request.form['idCondition']
+        id = request.form['id']
+        roleCondition = request.form['roleCondition']
+        username = request.form['username']
 
-        pagination = getUserListPagination(keyword)
+        print(roleCondition)
+
+        pagination = getSearchUserListPagination(idCondition, id, roleCondition, username)
         users = pagination.items  # 获取当前页数据
 
         print(pagination)

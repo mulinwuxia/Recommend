@@ -102,13 +102,29 @@
 		<!-- 右侧内容区 -->
 		<div class="right-content">
 			<div class="check-box row">
-			    <div class="col-8">
+			    <div class="col-4">
 			        <button class="btn" data-bs-toggle="modal" data-bs-target="#addUser">添加用户 </button>
 			    </div>
-				<div class="col-4 search ">
+				<div class="col-8 search ">
 					<form action="{{url_for('admin_searchuser', userid=userid)}}" method=POST>
 
-						<input type="text" name="keyword" placeholder="输入ID或者用户名">
+						<select id="idList" name="idCondition">
+							<option selected="selected" value="-1">不限id</option>
+							<option value="0">id大于</option>
+							<option value="1">id等于</option>
+							<option value="2">id小于</option>
+						</select>
+
+						<input name="id" type="text" value="" placeholder="id"/>
+
+						<select id="roleList" name="roleCondition">
+							<option selected="selected" value="-1">不限role</option>
+							<option value="admin">admin</option>
+							<option value="user">user</option>
+						</select>
+
+
+						<input type="text" name="username" placeholder="用户名">
 						<button class="btn" type="submit">查询 </button>
 
 					</form>

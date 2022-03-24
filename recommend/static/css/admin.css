@@ -193,9 +193,12 @@ button{
 	color: #fff!important;
 }
 
+.check-box .search select{
+	height: 36.5px;
+	margin-left: 20px;
+}
 
 .check-box .search input{
-	float: left;
 	height: 36.5px;
 	line-height: 36.5px;
 	width: 200px !important;
