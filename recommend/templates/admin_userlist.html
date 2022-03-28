@@ -109,22 +109,22 @@
 					<form action="{{url_for('admin_searchuser', userid=userid)}}" method=POST>
 
 						<select id="idList" name="idCondition">
-							<option selected="selected" value="-1">不限id</option>
-							<option value="0">id大于</option>
-							<option value="1">id等于</option>
-							<option value="2">id小于</option>
+							<option {% if idCondition=="-1" %} selected="selected" {% endif %} value="-1">不限id</option>
+							<option {% if idCondition=="0" %} selected="selected" {% endif %} value="0">id大于</option>
+							<option {% if idCondition=="1" %} selected="selected" {% endif %} value="1">id等于</option>
+							<option {% if idCondition=="2" %} selected="selected" {% endif %} value="2">id小于</option>
 						</select>
 
-						<input name="id" type="text" value="" placeholder="id"/>
+						<input name="id" type="text" {% if id %} value={{ id }} {% endif %} placeholder="id"/>
 
 						<select id="roleList" name="roleCondition">
-							<option selected="selected" value="-1">不限role</option>
-							<option value="admin">admin</option>
-							<option value="user">user</option>
+							<option {% if roleCondition=="-1" %} selected="selected" {% endif %} value="-1">不限role</option>
+							<option {% if roleCondition=="admin" %} selected="selected" {% endif %} value="admin">admin</option>
+							<option {% if roleCondition=="user" %} selected="selected" {% endif %} value="user">user</option>
 						</select>
 
 
-						<input type="text" name="username" placeholder="用户名">
+						<input type="text" name="username" placeholder="用户名" {% if username %} value={{ username }} {% endif %}>
 						<button class="btn" type="submit">查询 </button>
 
 					</form>
@@ -201,6 +201,16 @@
 														<label class="col-3 control-label">密码：</label>
 														<div class="col-8 ">
 															<input type="text" class="form-control input-sm duiqi" name="password" value="{{user.password}}">
+														</div>
+													</div>
+
+													<div class="form-group">
+														<label  class="col-3 control-label">权限：</label>
+														<div class="col-8">
+															<label class="control-label" >
+																<input type="checkbox" name="role" value="admin" {% for role in user.roles %} {% if role.rolename=='admin' %} checked="checked"  {% endif %} {% endfor %}>管理员</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<label class="control-label" >
+																<input type="checkbox" name="role" value="user" {% for role in user.roles %} {% if role.rolename=='user' %} checked="checked"  {% endif %} {% endfor %}>普通用户</label>
 														</div>
 													</div>
 

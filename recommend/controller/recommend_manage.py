@@ -105,10 +105,11 @@ def getSearchUserListPagination(idCondition, id, roleCondition, username):
 
     if id:
         print('id is not None')
-        if idCondition == -1:
+        if idCondition == '-1':
             print('idCondition == -1')
-            if roleCondition != -1:
-                print('roleConditon != 1')
+            if roleCondition != '-1':
+                print(roleCondition)
+                print('roleConditon != -1')
                 role = Role.query.filter_by(rolename=roleCondition).first()
 
                 print(role)
@@ -121,11 +122,12 @@ def getSearchUserListPagination(idCondition, id, roleCondition, username):
                     print('username is not None')
                     filterConditions.append(User.username.like('%' + username + '%'))
 
-        elif idCondition == 0:
+        elif idCondition == '0':
             print('idCondition == 0')
             filterConditions.append(User.id > id)
-            if roleCondition != -1:
-                print('roleConditon != 1')
+            if roleCondition != '-1':
+                print(roleCondition)
+                print('roleConditon != -1')
                 role = Role.query.filter_by(rolename=roleCondition).first()
                 filterConditions.append(User.roles.contains(role))
                 if username:
@@ -135,13 +137,14 @@ def getSearchUserListPagination(idCondition, id, roleCondition, username):
                 if username:
                     print('username is not None')
                     filterConditions.append(User.username.like('%' + username + '%'))
-        elif idCondition == 1:
+        elif idCondition == '1':
             print('idCondition == 1')
             filterConditions.append(User.id == id)
         else:
             filterConditions.append(User.id < id)
-            if roleCondition != -1:
-                print('roleConditon != 1')
+            if roleCondition != '-1':
+                print(roleCondition)
+                print('roleConditon != -1')
                 role = Role.query.filter_by(rolename=roleCondition).first()
                 filterConditions.append(User.roles.contains(role))
                 if username:
@@ -153,8 +156,9 @@ def getSearchUserListPagination(idCondition, id, roleCondition, username):
                     filterConditions.append(User.username.like('%' + username + '%'))
     else:
         print('id is None')
-        if roleCondition != -1:
-            print('roleConditon != 1')
+        if roleCondition != '-1':
+            print(roleCondition)
+            print('roleConditon != -1')
             role = Role.query.filter_by(rolename=roleCondition).first()
             filterConditions.append(User.roles.contains(role))
             if username:
@@ -181,10 +185,19 @@ def admin_userlist(userid):
     print(pagination)
     print(users)
 
+
+
+    adminRole = Role.query.filter_by(rolename='admin').first()
+
+    userRole = Role.query.filter_by(rolename='user').first()
+
     datas = {
         'userid': userid,
         'pagination': pagination,
-        'users': users
+        'users': users,
+        'adminRole':adminRole,
+        'userRole':userRole
+
     }
 
     return render_template('admin_userlist.html', **datas)
@@ -209,10 +222,18 @@ def admin_searchuser(userid):
         print('users:')
         print(users)
 
+
         datas = {
             'userid': userid,
             'pagination': pagination,
-            'users': users
+            'users': users,
+
+            'idCondition': idCondition,
+            'id': id,
+            'roleCondition': roleCondition,
+            'username': username
+
+
         }
 
         return render_template('admin_userlist.html', **datas)
@@ -244,12 +265,34 @@ def admin_updateuser(userid):
         userid = request.form['userid']
         username = request.form['username']
         password = request.form['password']
+        roles = request.form.getlist('role')
 
         update_user = User.query.filter_by(id=userid).first()
         update_user.username = username
         update_user.password = password
 
-        print(update_user.username)
+        rolelist = []
+        for r in update_user.roles:
+            rolelist.append(r.rolename)
+
+        print('roles, rolelist')
+        print(roles, rolelist)
+
+        # 如果复选框中的role是user.roles中所不存在的，新增user权限
+        for r in roles:
+            if r not in rolelist:
+                role = Role.query.filter_by(rolename=r).first()
+                update_user.roles.append(role)
+                db.session.commit()
+
+        # 如果user.roles中的role是复选框的role中所不存在的，删除user权限
+        for r in rolelist:
+            if r not in roles:
+                role = Role.query.filter_by(rolename=r).first()
+                update_user.roles.remove(role)
+                db.session.commit()
+
+        print(update_user)
 
         db.session.commit()
 
