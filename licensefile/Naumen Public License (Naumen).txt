@@ -1,0 +1,13 @@
+NAUMEN Public License (Naumen)
+
+
+view summary of naumen public license (naumen) on tldrlegal »  (disclaimer)
+this software is copyright (c) naumen (tm) and contributors. all rights reserved.
+redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+1. redistributions in source code must retain the above copyright notice, this list of conditions, and the following disclaimer.
+2. redistributions in binary form must reproduce the above copyright notice, this list of conditions, and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. the name naumen (tm) must not be used to endorse or promote products derived from this software without prior written permission from naumen.
+4. the right to distribute this software or to use it for any purpose does not give you the right to use servicemarks (sm) or trademarks (tm) of naumen.
+5. if any files originating from naumen or contributors are modified, you must cause the modified files to carry prominent notices stating that you changed the files and the date of any change.
+disclaimer:
+this software consists of contributions made by naumen and contributors. specific attributions are listed in the accompanying credits file.

@@ -1,0 +1,9 @@
+The Eiffel Forum License, version 1 (EFL-1.0)
+
+
+permission is hereby granted to use, copy, modify and/or distribute this package, provided that:
+copyright notices are retained unchanged
+any distribution of this package, whether modified or not, includes this file
+permission is hereby also granted to distribute binary programs which depend on this package, provided that:
+this package is provided "as is" and without warranty. any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. in no event shall the authors be liable to any party for any direct, indirect, incidental, special, exemplary, or consequential damages arising in any way out of the use of this package.
+[near the top of each class file (or other item within the package), and in any announcements about the package, and in any application "splash screen" or "about box", include the following line:

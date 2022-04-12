@@ -1,0 +1,36 @@
+IPA Font License (IPA)
+
+
+
+
+view summary of ipa font license (ipa) on tldrlegal »
+
+(disclaimer)
+
+ipa font license agreement v1.0 (090305)
+ 
+the licensor provides the licensed program (as defined in article 1 below) under the terms of this license agreement ("agreement").  any use, reproduction or distribution of the licensed program, or any exercise of rights under this agreement by a recipient (as defined in article 1 below) constitutes the recipient's acceptance of this agreement.
+ 
+article 1 (definitions)
+ 
+article 2 (grant of license)
+the licensor grants to the recipient a license to use the licensed program in any and all countries in accordance with each of the provisions set forth in this agreement. however, any and all rights underlying in the licensed program shall be held by the licensor. in no sense is this agreement intended to transfer any right relating to the licensed program held by the licensor except as specifically set forth herein or any right relating to any trademark, trade name, or service mark to the recipient.
+ 
+ 
+article 3 (restriction)
+the license granted in the preceding article shall be subject to the following restrictions:
+ 
+(1)                the following must be also redistributed together with the derived program, or be made available online or by means of mailing mechanisms in exchange for a cost which does not exceed the total costs of postage, storage medium and handling fees:
+(a)    a copy of the derived program; and
+(b)    any additional file created by the font developing program in the course of creating the derived program that can be used for further modification of the derived program, if any.
+(2)                it is required to also redistribute means to enable recipients of the derived program to replace the derived program with the licensed program first released under this license (the "original program").  such means may be to provide a difference file from the original program, or instructions setting out a method to replace the derived program with the original program.
+(3)                the recipient must license the derived program under the terms and conditions of this agreement.
+(4)                no one may use or include the name of the licensed program as a program name, font name or file name of the derived program.
+(5)                any material to be made available online or by means of mailing a medium to satisfy the requirements of this paragraph may be provided, verbatim, by any party wishing to do so.
+(1)                the recipient may not change the name of the licensed program.
+(2)                the recipient may not alter or otherwise modify the licensed program.
+(3)                the recipient must attach a copy of this agreement to the licensed program.
+ 
+article 4 (termination of agreement)
+ 
+article 5 (governing law)

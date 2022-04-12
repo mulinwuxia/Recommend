@@ -1,0 +1,11 @@
+Simple Public License (SimPL-2.0)
+
+
+view summary of simple public license 2.0 (simpl) on tldrlegal »  (disclaimer)
+this simple public license 2.0 (simpl-2.0 for short) is a plain language implementation of gpl 2.0.  the words are different, but the goal is the same - to guarantee for all users the freedom to share and change software.  if anyone wonders about the meaning of the simpl, they should interpret it as consistent with gpl 2.0.
+the simpl applies to the software's source and object code and comes with any rights that i have in it (other than trademarks). you agree to the simpl by copying, distributing, or making a derivative work of the software.
+you get the royalty free right to:
+if you distribute the software or a derived work, you must give back to the community by:
+there are some things that you must shoulder:
+the simpl continues perpetually, except that your license rights end automatically if:
+you may do anything that you want with the simpl text; it's a license form to use in any way that you find helpful.  to avoid confusion, however, if you change the terms in any way then you may not call your license the simple public license or the simpl (but feel free to acknowledge that your license is "based on the simple public license").

@@ -1,0 +1,9 @@
+The Intel Open Source License (Intel)
+
+
+(intel has ceased to use or recommend this license)  
+copyright (c) 1996-2000 intel corporation
+all rights reserved.
+redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: 
+this software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. in no event shall the intel or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
+export laws: this license adds no restrictions to the export laws of your jurisdiction. it is licensee's responsibility to comply with any export regulations applicable in licensee's jurisdiction. under current (may 2000) u.s. export regulations this software is eligible for export from the u.s. and can be downloaded by or otherwise exported or reexported worldwide except to u.s. embargoed destinations which include cuba, iraq, libya, north korea, iran, syria, sudan, afghanistan and any other country to which the u.s. has embargoed goods and services.

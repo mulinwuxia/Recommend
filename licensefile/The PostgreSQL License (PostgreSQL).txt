@@ -1,0 +1,14 @@
+The PostgreSQL Licence (PostgreSQL)
+
+
+
+
+view summary of postgresql license (postgresql) on tldrlegal »
+
+(disclaimer)
+
+this is a template license. the body of the license starts at the end of this paragraph. to use it, say that it is the postgresql license, and then substitute the copyright year and name of the copyright holder into the body of the license. then put the license into a prominent file ("copyright", "license" or "copying" are common names for this file) in your software distribution.
+copyright (c) $year, $organization
+permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+in no event shall $organisation be liable to any party for direct, indirect, special, incidental, or consequential damages, including lost profits, arising out of the use of this software and its documentation, even if $organisation has been advised of the possibility of such damage.
+$organisation specifically disclaims any warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. the software provided hereunder is on an "as is" basis, and $organisation has no obligations to provide maintenance, support, updates, enhancements, or modifications.

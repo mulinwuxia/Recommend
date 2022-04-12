@@ -1,0 +1,5 @@
+Licenses by Name
+
+
+the following licenses have been approved by the osi. the parenthesized expression following a license name is its spdx short identifier (if one exists).
+you can also view a list of open source licenses grouped by category, and licenses which have been superseded or retired. 
