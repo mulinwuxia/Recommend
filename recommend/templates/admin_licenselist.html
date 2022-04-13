@@ -93,6 +93,23 @@
 						<img src="{{ url_for('index') }}static/images/license_grey.png">
 						许可证
 					</a>
+
+				</li>
+
+				<li class="nav-item menu-item">
+
+					<a class="nav-link" href="{{ url_for('admin_projectlist', userid=userid) }}">
+						<img src="{{ url_for('index') }}static/images/project_grey.png">
+						项目
+					</a>
+				</li>
+
+				<li class="nav-item menu-item">
+
+					<a class="nav-link" href="{{ url_for('admin_licenselist', userid=userid) }}">
+						<img src="{{ url_for('index') }}static/images/book_grey.png">
+						书籍
+					</a>
 				</li>
 			 
 			</ul>

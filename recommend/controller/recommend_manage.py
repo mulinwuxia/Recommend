@@ -3,6 +3,8 @@ from sqlalchemy import or_
 
 from recommend.model.user import User
 from recommend.model.role import Role
+from recommend.model.project import Project
+from recommend.model.book import Book
 
 from recommend import app, db
 from flask import request,render_template,flash,abort,url_for,redirect,session,Flask,g
@@ -320,6 +322,123 @@ def admin_deleteuser(userid, id):
     db.session.commit()
 
     return redirect(url_for('admin_userlist', userid=userid))
+
+
+# 管理员界面-展示系统管理projectlist
+@app.route('/admin/?<userid>/projectlist', methods=['GET', 'POST'])
+def admin_projectlist(userid):
+
+    print('相关项目显示')
+
+    page = int(request.args.get('page', 1))  # 当前页数
+    per_page = int(request.args.get('per_page', 5))  # 设置每页数量
+    pagination = Project.query.paginate(page, per_page, error_out=False)
+
+    projects = pagination.items  # 获取当前页数据
+
+    print(pagination)
+    print(projects)
+
+    datas = {
+        'userid': userid,
+        'pagination': pagination,
+        'projects': projects,
+    }
+
+    return render_template('admin_projectlist.html', **datas)
+
+@app.route('/admin/?<userid>/projectlist/searchproject', methods=['GET', 'POST'])
+def admin_searchproject(userid):
+
+    print('搜索项目')
+    if request.method == 'POST':
+        information = request.form['information']
+
+        print('information:', information)
+
+        page = int(request.args.get('page', 1))  # 当前页数
+        per_page = int(request.args.get('per_page', 5))  # 设置每页数量
+
+
+        pagination = Project.query.filter(
+            or_(
+                Project.projectname.like('%' + information + '%'),
+                Project.projectintroduce.like('%' + information + '%')
+            )
+        ).paginate(page, per_page, error_out=False)
+        projects = pagination.items
+
+
+        datas = {
+            'userid': userid,
+            'pagination': pagination,
+            'projects': projects,
+            'information': information
+        }
+
+        return render_template('admin_projectlist.html', **datas)
+    return redirect(url_for('admin_projectlist', userid=userid))
+
+@app.route('/admin/?<userid>/projectlist/addproject', methods=['GET', 'POST'])
+def admin_addproject(userid):
+    # 添加项目
+
+    if request.method=='POST':
+        projectname=request.form['projectname']
+        projectintroduce=request.form['projectintroduce']
+        projecturl=request.form['projecturl']
+        projectimg=request.form['projectimg']
+
+        project=Project(projectname=projectname, projectintroduce=projectintroduce, projecturl=projecturl, projectimg=projectimg)
+
+        db.session.add(project)
+        db.session.commit()
+
+    return redirect(url_for('admin_projectlist', userid=userid))
+
+@app.route('/admin/?<userid>/projectlist/updateproject', methods=['GET', 'POST'])
+def admin_updateproject(userid):
+    # 更新项目
+    print('修改项目')
+
+    # 更新项目信息
+    if request.method == 'POST':
+        projectid = request.form['projectid']
+        projectname = request.form['projectname']
+        projectintroduce = request.form['projectintroduce']
+        projecturl = request.form['projecturl']
+        projectimg = request.form['projectimg']
+
+        update_project = Project.query.filter_by(projectid=projectid).first()
+        update_project.projectname = projectname
+        update_project.projectintroduce = projectintroduce
+        update_project.projecturl = projecturl
+        update_project.projectimg = projectimg
+
+        print(update_project)
+
+        db.session.commit()
+
+        return redirect(url_for('admin_projectlist', userid=userid))
+
+
+    return redirect(url_for('admin_projectlist', userid=userid))
+
+@app.route('/admin/?<userid>/projectlist/deleteproject/?<id>', methods=['GET', 'POST'])
+def admin_deleteproject(userid, id):
+    # 删除项目
+
+    print('删除项目')
+
+    delete_project = Project.query.filter_by(projectid=id).first()
+    print(delete_project)
+
+    db.session.delete(delete_project)
+    db.session.commit()
+
+    return redirect(url_for('admin_projectlist', userid=userid))
+
+
 
 
 @app.route('/admin/?<userid>/licenselist')

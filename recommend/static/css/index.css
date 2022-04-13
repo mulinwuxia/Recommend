@@ -23,19 +23,15 @@ button{
 	}	
 }
 
-.error-alert{
-    position: relative;
-    padding: 1rem 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
+body{
+	background-color: #eff3f6;
 }
-
 .header{
 	padding-left: 0!important;
 	width: 100%;
 	background-color: #9fafc8;
 	height: 65px;
-	
+
 }
 
 .logo{
@@ -49,7 +45,7 @@ button{
 
 
 .nav{
-	
+
 	float: left;
 	/* background-color: #9fafc8; */
 	height: 65px;
@@ -59,7 +55,7 @@ button{
 
 .nav li{
 	float: left;
-	
+
 }
 
 .nav a{
@@ -76,12 +72,12 @@ button{
 	height: 65px;
 	line-height: 65px;
 	padding-left: 20px;
-	
+
 }
 
 .header_right li{
 	float: left;
-	
+
 }
 
 .header_right li:last-child{
@@ -96,7 +92,7 @@ button{
 }
 .header_right li a:hover{
 	color: #ffffff;
-	
+
 }
 .header_right li .lbr{
 	margin: 20px;
@@ -124,13 +120,14 @@ button{
 .middle_container{
 	padding-left: 30px;
 	clear: left;
-	margin-top: 30px;
+	padding-top: 30px;
 	font-size: 20px;
+
 }
 .middle_container .carousel-inner img {
-      width: 100%;
-      height: 100%;
-	  
+    height: 260px;
+	border: 1.5px solid #7987a2;
+
 }
 
 .title{
@@ -145,7 +142,7 @@ button{
 .left_container #slider{
 	float: left;
 	width: 60%;
-	
+
 }
 
 .left_container #slider img{
@@ -155,57 +152,122 @@ button{
 .left_container .features{
 	float: left;
 	padding-left: 30px;
-	width: 40%;
+	width: 150px;
+
 }
 
 .left_container .features li:first-child{
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 .left_container .features img{
 	border-radius: 5px;
+	width: 200px;
+	height: 120px;
+	border: 1.5px solid #7987a2;
 }
 
-.left_container .lastest_news{
+.left_container .lastest_project{
 	padding-top: 20px;
 	clear: left;
-	
+	margin-bottom: 20px;
+
+}
+
+.left_container .lastest_project .list{
+	background-color: white;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-right: 20px;
+}
+
+.left_container .lastest_project .list li{
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding-bottom: 10px;
+	display: flex;
+	border-bottom: 0.5px solid #eff3f6;
+}
+
+.left_container .lastest_project .list li:first-child{
+	margin-top: 10px;
+}
+
+.left_container .lastest_project .list img{
+	border-radius: 5px;
+	width: 200px;
+	height: 120px;
+	border: 0.5px solid #7987a2;
+
+}
+.left_container .lastest_project li .item-content{
+	margin-left: 10px;
+
+}
+
+.left_container .lastest_project .item-content a{
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+
+}
+
+.left_container .lastest_project .item-content span{
+
+	display: block;
+	font-size: 12px;
 }
 
 .right_container{
-	padding-left: 30px;
-	
-}
+	padding-left: 20px;
 
-/* .right_container .find{
-	
-	height: 35.96px;
-	
 }
-.right_container .find input{
-	float: left;
-	font-size: 15px;
-	width: calc(100% - 70px);
-	height: 100%;
-	
-	
-}
-.right_container .find button{
-	float: left;
-	width: 40px;
-	background-color: #7987a2;
-}
-.right_container .find img{
-	width: 100%;
-	position: ;
-}
-
- */
 
 .right_container .books{
-	
+
 	margin-right: 30px;
-	
+	background-color: white;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-right: 20px;
+
 }
 
+.right_container .books li{
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding-bottom: 10px;
+	display: flex;
+	border-bottom: 0.5px solid #eff3f6;
+}
 
+.right_container .books li:first-child{
+	margin-top: 10px;
+}
+
+.right_container .books li .item-img img{
+	border-radius: 5px;
+	width: 200px;
+	height: 120px;
+	border: 0.5px solid #7987a2;
+
+}
+.right_container .books li .item-content{
+	margin-left: 10px;
+
+}
+
+.right_container .books .item-content a{
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+
+}
+
+.right_container .books .item-content span{
+	margin-top: 20px;
+	display: block;
+	font-size: 12px;
+}
