@@ -5,13 +5,33 @@ from recommend.model.user import User
 from recommend.model.role import Role
 from recommend.model.project import Project
 from recommend.model.book import Book
+from recommend.model.license import License
 
 from recommend import app, db
 from flask import request,render_template,flash,abort,url_for,redirect,session,Flask,g
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    books = Book.query.all()
+    projects = Project.query.all()
+    datas={
+        'books': books,
+        'projects': projects
+    }
+
+    return render_template('index.html', **datas)
+
+@app.route('/license')
+def index_license():
+    licenses = License.query.all()
+
+    datas={
+        'licenses': licenses,
+
+    }
+
+    return render_template('license.html', **datas)
+
 
 @app.route('/?<registerMessage>')
 def register_index(registerMessage):
@@ -203,7 +223,6 @@ def admin_userlist(userid):
     }
 
     return render_template('admin_userlist.html', **datas)
-
 
 @app.route('/admin/?<userid>/userlist/searchuser', methods=['GET', 'POST'])
 def admin_searchuser(userid):
@@ -438,12 +457,127 @@ def admin_deleteproject(userid, id):
 
     return redirect(url_for('admin_projectlist', userid=userid))
 
+# 管理员界面-展示系统管理booklist
+@app.route('/admin/?<userid>/booklist', methods=['GET', 'POST'])
+def admin_booklist(userid):
+
+    print('相关书籍显示')
+
+    page = int(request.args.get('page', 1))  # 当前页数
+    per_page = int(request.args.get('per_page', 5))  # 设置每页数量
+    pagination = Book.query.paginate(page, per_page, error_out=False)
+
+    books = pagination.items  # 获取当前页数据
+
+    print(pagination)
+    print(books)
+
+    datas = {
+        'userid': userid,
+        'pagination': pagination,
+        'books': books,
+    }
+
+    return render_template('admin_booklist.html', **datas)
+
+@app.route('/admin/?<userid>/booklist/searchbook', methods=['GET', 'POST'])
+def admin_searchbook(userid):
+
+    print('搜索书籍')
+    if request.method == 'POST':
+        information = request.form['information']
+
+        print('information:', information)
+
+        page = int(request.args.get('page', 1))  # 当前页数
+        per_page = int(request.args.get('per_page', 5))  # 设置每页数量
 
 
+        pagination = Book.query.filter(
+            or_(
+                Book.bookname.like('%' + information + '%'),
+                Book.bookauthor.like('%' + information + '%')
+            )
+        ).paginate(page, per_page, error_out=False)
+        books = pagination.items
 
+
+        datas = {
+            'userid': userid,
+            'pagination': pagination,
+            'books': books,
+            'information': information
+        }
+
+        return render_template('admin_booklist.html', **datas)
+    return redirect(url_for('admin_booklist', userid=userid))
+
+@app.route('/admin/?<userid>/booklist/addbook', methods=['GET', 'POST'])
+def admin_addbook(userid):
+    # 添加书籍
+
+    if request.method=='POST':
+        bookname=request.form['bookname']
+        bookauthor=request.form['bookauthor']
+        bookurl=request.form['bookurl']
+        bookimg=request.form['bookimg']
+
+        book = Book(bookname=bookname, bookauthor=bookauthor, bookurl=bookurl, bookimg=bookimg)
+        db.session.add(book)
+        db.session.commit()
+
+    return redirect(url_for('admin_booklist', userid=userid))
+
+@app.route('/admin/?<userid>/booklist/updatebook', methods=['GET', 'POST'])
+def admin_updatebook(userid):
+    # 更新项目
+    print('修改书籍')
+
+    # 更新项目信息
+    if request.method == 'POST':
+        bookid = request.form['bookid']
+        bookname = request.form['bookname']
+        bookauthor = request.form['bookauthor']
+        bookurl = request.form['bookurl']
+        bookimg = request.form['bookimg']
+
+        update_book = Book.query.filter_by(bookid=bookid).first()
+        update_book.bookname = bookname
+        update_book.bookauthor = bookauthor
+        update_book.bookurl = bookurl
+        update_book.bookimg = bookimg
+
+        print(update_book)
+
+        db.session.commit()
+
+        return redirect(url_for('admin_booklist', userid=userid))
+
+
+    return redirect(url_for('admin_booklist', userid=userid))
+
+@app.route('/admin/?<userid>/booklist/deletebook/?<id>', methods=['GET', 'POST'])
+def admin_deletebook(userid, id):
+
+    print('删除书籍')
+
+    delete_book = Book.query.filter_by(bookid=id).first()
+    print(delete_book)
+
+    db.session.delete(delete_book)
+    db.session.commit()
+
+    return redirect(url_for('admin_booklist', userid=userid))
+
+# 管理员界面-展示系统管理licenselist
 @app.route('/admin/?<userid>/licenselist')
 def admin_licenselist(userid):
-    return render_template('admin_licenselist.html', userid=userid)
+    licenses = License.query.all()
+    datas = {
+        'userid': userid,
+        'licenses': licenses
+    }
+    return render_template('admin_licenselist.html', **datas)
 
 
 @app.route('/user/?<userid>')

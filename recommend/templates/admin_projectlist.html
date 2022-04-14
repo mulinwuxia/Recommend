@@ -63,300 +63,302 @@
 			</div>
 		</div>
 
-		<!-- 左侧导航栏 -->
-		<div class="left-menu">
-			<ul class="nav flex-column">
-				<li class="nav-item menu-title">
-					账号管理
-				</li>
-				<li class="nav-item menu-item">
+		<div class="content">
+			<!-- 左侧导航栏 -->
+			<div class="left-menu">
+				<ul class="nav flex-column">
+					<li class="nav-item menu-title">
+						账号管理
+					</li>
+					<li class="nav-item menu-item">
 
-					<a class="nav-link active" aria-current="page" href="{{ url_for('admin_rolelist', userid=userid) }}">
-						<img src="{{ url_for('index') }}static/images/level.png">
-						权限
-					</a>
-				</li>
-				<li class="nav-item menu-item">
+						<a class="nav-link active" aria-current="page" href="{{ url_for('admin_rolelist', userid=userid) }}">
+							<img src="{{ url_for('index') }}static/images/level.png">
+							权限
+						</a>
+					</li>
+					<li class="nav-item menu-item">
 
-					<a class="nav-link" href="{{ url_for('admin_userlist', userid=userid) }}">
-						<img src="{{ url_for('index') }}static/images/user_grey.png">
-						用户
-					</a>
-				</li>
-				<li class="nav-item menu-title">
-					系统管理
-				</li>
-				<li class="nav-item menu-item">
+						<a class="nav-link" href="{{ url_for('admin_userlist', userid=userid) }}">
+							<img src="{{ url_for('index') }}static/images/user_grey.png">
+							用户
+						</a>
+					</li>
+					<li class="nav-item menu-title">
+						系统管理
+					</li>
+					<li class="nav-item menu-item">
 
 
-					<a class="nav-link" href="{{ url_for('admin_licenselist', userid=userid) }}">
-						<img src="{{ url_for('index') }}static/images/license_grey.png">
-						许可证
-					</a>
-				</li>
+						<a class="nav-link" href="{{ url_for('admin_licenselist', userid=userid) }}">
+							<img src="{{ url_for('index') }}static/images/license_grey.png">
+							许可证
+						</a>
+					</li>
 
-				<li class="nav-item menu-item  active  menu-item-active">
+					<li class="nav-item menu-item  active  menu-item-active">
 
-					<a class="nav-link" href="{{ url_for('admin_projectlist', userid=userid) }}">
-						<img src="{{ url_for('index') }}static/images/project_grey.png">
-						项目
-					</a>
-				</li>
+						<a class="nav-link" href="{{ url_for('admin_projectlist', userid=userid) }}">
+							<img src="{{ url_for('index') }}static/images/project_grey.png">
+							项目
+						</a>
+					</li>
 
-				<li class="nav-item menu-item">
+					<li class="nav-item menu-item">
 
-					<a class="nav-link" href="{{ url_for('admin_licenselist', userid=userid) }}">
-						<img src="{{ url_for('index') }}static/images/book_grey.png">
-						书籍
-					</a>
-				</li>
+						<a class="nav-link" href="{{ url_for('admin_booklist', userid=userid) }}">
+							<img src="{{ url_for('index') }}static/images/book_grey.png">
+							书籍
+						</a>
+					</li>
 
-			</ul>
-
-		</div>
-
-		<!-- 右侧内容区 -->
-		<div class="right-content">
-			<div class="check-box row">
-			    <div class="col-4">
-			        <button class="btn" data-bs-toggle="modal" data-bs-target="#addProject">添加项目 </button>
-			    </div>
-				<div class="col-8 search ">
-					<form action="{{url_for('admin_searchproject', userid=userid)}}" method=POST>
-						<input type="text" name="information" placeholder="相关信息" {% if information %} value={{ information }} {% endif %}>
-						<button class="btn" type="submit">查询 </button>
-
-					</form>
-				</div>
+				</ul>
 
 			</div>
-			<div class="data-div">
-			    <div class="row tableHeader">
-			        <div class="col-2 ">
-			            项目ID
-			        </div>
-			        <div class="col-2">
-			            项目名
-			        </div>
-			        <div class="col-2">
-			            项目介绍
-			        </div>
-			        <div class="col-2">
-			            项目链接
-			        </div>
-					<div class="col-2">
-			            项目图片
-			        </div>
-			        <div class="col-2">
-			            操作
-			        </div>
-			    </div>
-			    <div class="tablebody">
-					{% if projects %}
-						{% for project in projects %}
-							<div class="row">
-								<div class="col-2 ">
-									{{ project.projectid }}
-								</div>
-								<div class="col-2">
-									{{ project.projectname }}
-								</div>
-								<div class="col-2">
-									{{ project.projectintroduce }}
-								</div>
-								<div class="col-2">
-								   {{ project.projecturl }}
-								</div>
-								<div class="col-2">
-								   {{ project.projectimg }}
-								</div>
-								<div class="col-2">
-									<button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#reviseProject{{project.projectid}}">修改</button>
-									<button class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteProject{{project.projectid}}">删除</button>
-								</div>
-							</div>
 
-							<!--弹出修改项目窗口-->
-							<div class="modal fade" id="reviseProject{{project.projectid}}" role="dialog" >
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title">修改用户</h4>
-											<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<!-- 右侧内容区 -->
+			<div class="right-content">
+				<div class="check-box row">
+					<div class="col-8">
+						<button class="btn" data-bs-toggle="modal" data-bs-target="#addProject">添加项目 </button>
+					</div>
+					<div class="col-4 search ">
+						<form action="{{url_for('admin_searchproject', userid=userid)}}" method=POST>
+							<input type="text" name="information" placeholder="相关信息" {% if information %} value={{ information }} {% endif %}>
+							<button class="btn" type="submit">查询 </button>
 
-										</div>
-										<div class="modal-body">
-											<div class="container-fluid">
-												<form class="form-horizontal" action="{{url_for('admin_updateproject', userid=userid)}}" method=POST>
-													<div class="form-group ">
-														<label  class="col-3 control-label">项目ID：</label>
-														<div class="col-8 ">
-															<input type="text" readOnly="true" class="form-control input-sm duiqi" name="projectid" value="{{project.projectid}}">
-														</div>
-													</div>
-													<div class="form-group ">
-														<label  class="col-3 control-label">项目名：</label>
-														<div class="col-8 ">
-															<input type="text" class="form-control input-sm duiqi" name="projectname" value="{{project.projectname}}">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-3 control-label">项目介绍：</label>
-														<div class="col-8 ">
-															<input type="text" class="form-control input-sm duiqi" name="projectintroduce" value="{{project.projectintroduce}}">
-														</div>
-													</div>
+						</form>
+					</div>
 
-													<div class="form-group">
-														<label class="col-3 control-label">项目链接：</label>
-														<div class="col-8 ">
-															<input type="text" class="form-control input-sm duiqi" name="projecturl" value="{{project.projecturl}}">
-														</div>
-													</div>
-
-													<div class="form-group">
-														<label class="col-3 control-label">项目图片：</label>
-														<div class="col-8 ">
-															<input type="text" class="form-control input-sm duiqi" name="projectimg" value="{{project.projectimg}}">
-														</div>
-													</div>
-
-
-													<div class="modal-footer">
-														<button type="submit" class="btn btn-xs btn-green">修 改</button>
-													</div>
-
-												</form>
-											</div>
-										</div>
-
-									</div>
-									<!-- /.modal-tool -->
-								</div>
-								<!-- /.modal-dialog -->
-							</div>
-							<!-- /.modal -->
-
-							<!--弹出删除项目警告窗口-->
-							<div class="modal fade" id="deleteProject{{project.projectid}}" role="dialog" aria-labelledby="gridSystemModalLabel">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
-											<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-										</div>
-										<div class="modal-body">
-											<div class="container-fluid">
-												确定要删除该用户？删除后不可恢复！
-											</div>
-										</div>
-										<div class="modal-footer">
-											<a href="{{url_for('admin_deleteproject', userid=userid, id=project.projectid)}}">
-												<button type="button" class="btn  btn-xs btn-danger">确 定</button>
-											</a>
-
-										</div>
-									</div>
-									<!-- /.modal-tool -->
-								</div>
-								<!-- /.modal-dialog -->
-							</div>
-							<!-- /.modal -->
-
-						{% endfor %}
-					{% endif %}
-
-
-			    </div>
-
-				<!--弹出添加用户窗口-->
-				<div class="modal fade" id="addProject" role="dialog">
-				    <div class="modal-dialog" role="document">
-				        <div class="modal-content">
-				            <div class="modal-header">
-								<h4 class="modal-title">添加用户</h4>
-				                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-				            </div>
-				            <div class="modal-body">
-				                <div class="container-fluid">
-				                    <form class="form-horizontal" action="{{ url_for('admin_addproject', userid=userid) }}" method=POST>
-				                         <div class="form-group ">
-											<label  class="col-3 control-label">项目名：</label>
-											<div class="col-8 ">
-												<input type="text" class="form-control input-sm duiqi" name="projectname">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-3 control-label">项目介绍：</label>
-											<div class="col-8 ">
-												<input type="text" class="form-control input-sm duiqi" name="projectintroduce">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-3 control-label">项目链接：</label>
-											<div class="col-8 ">
-												<input type="text" class="form-control input-sm duiqi" name="projecturl">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-3 control-label">项目图片：</label>
-											<div class="col-8 ">
-												<input type="text" class="form-control input-sm duiqi" name="projectimg">
-											</div>
-										</div>
-
-										 <div class="modal-footer">
-											<button type="submit" class="btn btn-xs btn-green">保 存</button>
-										</div>
-
-				                    </form>
-				                </div>
-				            </div>
-
-				        </div>
-				        <!-- /.modal-tool -->
-				    </div>
-				    <!-- /.modal-dialog -->
 				</div>
-				<!-- /.modal -->
+				<div class="data-div">
+					<div class="row tableHeader">
+						<div class="col-2 ">
+							项目ID
+						</div>
+						<div class="col-2">
+							项目名
+						</div>
+						<div class="col-2">
+							项目介绍
+						</div>
+						<div class="col-2">
+							项目链接
+						</div>
+						<div class="col-2">
+							项目图片
+						</div>
+						<div class="col-2">
+							操作
+						</div>
+					</div>
+					<div class="tablebody">
+						{% if projects %}
+							{% for project in projects %}
+								<div class="row">
+									<div class="col-2 ">
+										{{ project.projectid }}
+									</div>
+									<div class="col-2">
+										{{ project.projectname }}
+									</div>
+									<div class="col-2">
+										{{ project.projectintroduce }}
+									</div>
+									<div class="col-2">
+									   {{ project.projecturl }}
+									</div>
+									<div class="col-2">
+									   {{ project.projectimg }}
+									</div>
+									<div class="col-2">
+										<button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#reviseProject{{project.projectid}}">修改</button>
+										<button class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteProject{{project.projectid}}">删除</button>
+									</div>
+								</div>
+
+								<!--弹出修改项目窗口-->
+								<div class="modal fade" id="reviseProject{{project.projectid}}" role="dialog" >
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">修改项目</h4>
+												<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+											</div>
+											<div class="modal-body">
+												<div class="container-fluid">
+													<form class="form-horizontal" action="{{url_for('admin_updateproject', userid=userid)}}" method=POST>
+														<div class="form-group ">
+															<label  class="col-3 control-label">项目ID：</label>
+															<div class="col-8 ">
+																<input type="text" readOnly="true" class="form-control input-sm duiqi" name="projectid" value="{{project.projectid}}">
+															</div>
+														</div>
+														<div class="form-group ">
+															<label  class="col-3 control-label">项目名：</label>
+															<div class="col-12 ">
+																<input type="text" class="form-control input-sm duiqi" name="projectname" value="{{project.projectname}}">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-3 control-label">项目介绍：</label>
+															<div class="col-12 ">
+																<input type="text" class="form-control input-sm duiqi" name="projectintroduce" value="{{project.projectintroduce}}">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label class="col-3 control-label">项目链接：</label>
+															<div class="col-12 ">
+																<input type="text" class="form-control input-sm duiqi" name="projecturl" value="{{project.projecturl}}">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label class="col-3 control-label">项目图片：</label>
+															<div class="col-12 ">
+																<input type="text" class="form-control input-sm duiqi" name="projectimg" value="{{project.projectimg}}">
+															</div>
+														</div>
+
+
+														<div class="modal-footer">
+															<button type="submit" class="btn btn-xs btn-green">修 改</button>
+														</div>
+
+													</form>
+												</div>
+											</div>
+
+										</div>
+										<!-- /.modal-tool -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+								<!-- /.modal -->
+
+								<!--弹出删除项目警告窗口-->
+								<div class="modal fade" id="deleteProject{{project.projectid}}" role="dialog" aria-labelledby="gridSystemModalLabel">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+												<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+											</div>
+											<div class="modal-body">
+												<div class="container-fluid">
+													确定要删除该用户？删除后不可恢复！
+												</div>
+											</div>
+											<div class="modal-footer">
+												<a href="{{url_for('admin_deleteproject', userid=userid, id=project.projectid)}}">
+													<button type="button" class="btn  btn-xs btn-danger">确 定</button>
+												</a>
+
+											</div>
+										</div>
+										<!-- /.modal-tool -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+								<!-- /.modal -->
+
+							{% endfor %}
+						{% endif %}
+
+
+					</div>
+
+					<!--弹出添加项目窗口-->
+					<div class="modal fade" id="addProject" role="dialog">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">添加项目</h4>
+									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+								</div>
+								<div class="modal-body">
+									<div class="container-fluid">
+										<form class="form-horizontal" action="{{ url_for('admin_addproject', userid=userid) }}" method=POST>
+											 <div class="form-group ">
+												<label  class="col-3 control-label">项目名：</label>
+												<div class="col-8 ">
+													<input type="text" class="form-control input-sm duiqi" name="projectname">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-3 control-label">项目介绍：</label>
+												<div class="col-12 ">
+													<input type="text" class="form-control input-sm duiqi" name="projectintroduce">
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="col-3 control-label">项目链接：</label>
+												<div class="col-12 ">
+													<input type="text" class="form-control input-sm duiqi" name="projecturl">
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="col-3 control-label">项目图片：</label>
+												<div class="col-12 ">
+													<input type="text" class="form-control input-sm duiqi" name="projectimg">
+												</div>
+											</div>
+
+											 <div class="modal-footer">
+												<button type="submit" class="btn btn-xs btn-green">保 存</button>
+											</div>
+
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<!-- /.modal-tool -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
 
 
 
-			</div>
-			<!--页码块-->
-			<footer class="footer">
+				</div>
+				<!--页码块-->
+				<footer class="footer">
 
-				<nav aria-label="Page navigation">
-				  <ul class="pagination">
-					  {% if pagination.has_prev %}
-						<li class="page-item">
-						  <a class="page-link" href="{{url_for('admin_projectlist', userid=userid)}}?page={{ pagination.prev_num }}" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						  </a>
-						</li>
-					  {% endif %}
-
-					  {% for i in pagination.iter_pages() %}
-					  	<li {% if pagination.page==i %} class="page-item active" {% else %} class="page-item" {% endif %}><a  class="page-link" href="{{url_for('admin_projectlist', userid=userid)}}?page={{ i }}">{{ i }}</a></li>
-					  {% endfor %}
-
-					  {% if pagination.has_next %}
-						  <li  class="page-item ">
-							  <a class="page-link" href="{{url_for('admin_projectlist', userid=userid)}}?page={{ pagination.next_num }}" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
+					<nav aria-label="Page navigation">
+					  <ul class="pagination">
+						  {% if pagination.has_prev %}
+							<li class="page-item">
+							  <a class="page-link" href="{{url_for('admin_projectlist', userid=userid)}}?page={{ pagination.prev_num }}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
 							  </a>
-						  </li>
-					  {% endif %}
+							</li>
+						  {% endif %}
 
-				  </ul>
-				</nav>
+						  {% for i in pagination.iter_pages() %}
+							<li {% if pagination.page==i %} class="page-item active" {% else %} class="page-item" {% endif %}><a  class="page-link" href="{{url_for('admin_projectlist', userid=userid)}}?page={{ i }}">{{ i }}</a></li>
+						  {% endfor %}
 
-			</footer>
+						  {% if pagination.has_next %}
+							  <li  class="page-item ">
+								  <a class="page-link" href="{{url_for('admin_projectlist', userid=userid)}}?page={{ pagination.next_num }}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								  </a>
+							  </li>
+						  {% endif %}
 
+					  </ul>
+					</nav>
+
+				</footer>
+
+			</div>
 		</div>
 	</body>
 </html>

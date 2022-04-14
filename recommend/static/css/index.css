@@ -64,6 +64,12 @@ body{
 
 .nav a:hover{
 	color: #ffffff;
+	font-weight: bold;
+}
+
+.nav .header_nav_active a{
+	color: white;
+	font-weight: bold;
 }
 
 .header_right{
@@ -210,7 +216,11 @@ body{
 	color: black;
 	font-size: 12px;
 	font-weight: bold;
+}
 
+.left_container .lastest_project .item-content a:hover{
+
+    text-decoration:underline;
 }
 
 .left_container .lastest_project .item-content span{
@@ -264,6 +274,11 @@ body{
 	font-size: 12px;
 	font-weight: bold;
 
+}
+
+.right_container .books .item-content a:hover{
+
+    text-decoration:underline;
 }
 
 .right_container .books .item-content span{

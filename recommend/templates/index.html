@@ -69,9 +69,9 @@
 			</div>
 			<div class="nav">
 				<ul>
-					<li><a href="{{ url_for('index') }}">首页</a></li>
+					<li class="header_nav_active" ><a href="{{ url_for('index') }}">首页</a></li>
 					<!-- <li><a href="#">推荐</a></li> -->
-					<li><a href="#">开源许可证</a></li>
+					<li><a href="{{ url_for('index_license') }}">开源许可证</a></li>
 					<li><a href="#">关于</a></li>
 				</ul>
 			</div>
@@ -174,13 +174,22 @@
 				  </div>
 				  <div class="carousel-inner">
 					<div class="carousel-item active">
-					  <img src="https://www.helloimg.com/images/2022/03/20/RaWwM6.png" class="d-block w-100" >
+
+						<a href="{{ url_for('index_license') }}">
+							<img src="https://www.helloimg.com/images/2022/03/20/RaWwM6.png" class="d-block w-100" >
+						</a>
 					</div>
 					<div class="carousel-item">
-					  <img src="https://www.helloimg.com/images/2022/03/20/RaWOcg.jpg" class="d-block w-100" >
+
+						<a href="{{ url_for('index_license') }}">
+							<img src="https://www.helloimg.com/images/2022/03/20/RaWOcg.jpg" class="d-block w-100" >
+						</a>
 					</div>
 					<div class="carousel-item">
-					  <img src="https://www.helloimg.com/images/2022/03/20/RaWvXP.jpg" class="d-block w-100">
+
+						<a href="{{ url_for('index_license') }}">
+							<img src="https://www.helloimg.com/images/2022/03/20/RaWvXP.jpg" class="d-block w-100">
+						</a>
 					</div>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
@@ -197,12 +206,12 @@
 				<div class="features">
 					<ul>
 						<li>
-							<a href="">
+							<a href="https://opensource.org/licenses/MIT">
 								<img src="https://www.helloimg.com/images/2022/03/20/RaOq4K.jpg" >
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="https://opensource.org/licenses/0BSD">
 								<img src="https://www.helloimg.com/images/2022/03/20/RaOeG1.jpg" >
 							</a>
 						</li>
@@ -216,33 +225,24 @@
 							<span>相关项目</span>
 						</div>
 							<ul>
+							{% if projects %}
+								{% for project in projects %}
 								<li>
 									<div class="item-img">
-										<img src="{{ url_for('index') }}static/images/GitHub.jpeg" >
+										<img src="{{ project.projectimg }}" >
 									</div>
 									<div class="item-content">
-										<a href="https://github.com/github/choosealicense.com">
-											choosealicense.com
+										<a href="{{ project.projecturl }}">
+											{{ project.projectname }}
 										</a>
-										<span>aims to provide accurate, non-judgmental, and understandable information about popular open source licenses in order to help people make informed decisions about the projects they start, maintain, contribute to, and use.</span>
+										<span>{{ project.projectintroduce }}</span>
 
 									</div>
 
 								</li>
-								<li>
-									<div class="item-img">
-										<img src="{{ url_for('index') }}static/images/GitHub.jpeg" >
-									</div>
-									<div class="item-content">
-										<a href="https://github.com/moritzruth/license-chooser">
-											license-chooser
-										</a>
-										<span>PWA helping you choose the license of your next open-source project.</span>
+								{% endfor %}
+							{% endif %}
 
-									</div>
-
-
-								</li>
 
 							</ul>
 
@@ -260,58 +260,23 @@
 						<span>相关资料</span>
 					</div>
 					<ul>
-						<li>
-							<div class="item-img">
-								<img src="{{ url_for('index') }}static/images/kaiyuanzhidao.jpg" >
-							</div>
-							<div class="item-content">
-								<a href="https://baike.baidu.com/item/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E4%B9%8B%E9%81%93/788644?fr=aladdin">
-									开源软件之道
-								</a>
-								<span>蔡俊杰, 吕晶, 连理.</span>
-							</div>
+						{% if books %}
+							{% for book in books %}
+							<li>
+								<div class="item-img">
+									<img src="{{ book.bookimg }}" >
+								</div>
+								<div class="item-content">
+									<a href="{{ book.bookurl }}">
+										{{ book.bookname }}
+									</a>
+									<span>{{ book.bookauthor }}</span>
+								</div>
 
 
-						</li>
-						<li>
-							<div class="item-img">
-								<img src="{{ url_for('index') }}static/images/zhiwang.jpg" >
-							</div>
-							<div class="item-content">
-								<a href="https://xuewen.cnki.net/CMFD-1019119938.nh.html">
-									开源软件知识产权保护问题研究
-								</a>
-								<span>高辉.</span>
-							</div>
-
-
-						</li>
-						<li>
-							<div class="item-img">
-								<img src="{{ url_for('index') }}static/images/IEEE.jpeg" >
-							</div>
-							<div class="item-content">
-								<a href="https://ieeexplore.ieee.org/document/8680684">
-									Modeling and Recommending Open Source Licenses with findOSSLicense
-								</a>
-								<span>G. M. Kapitsaki and G. Charalambous.</span>
-							</div>
-
-
-						</li>
-						<li>
-							<div class="item-img">
-								<img src="{{ url_for('index') }}static/images/ACM.jpeg" >
-							</div>
-							<div class="item-content">
-								<a href="https://dl.acm.org/doi/abs/10.1145/3133956.3134048">
-									Identifying Open-Source License Violation and 1-day Security Risk at Large Scale
-								</a>
-								<span>Duan, Ruian et al.</span>
-							</div>
-
-
-						</li>
+							</li>
+							{% endfor %}
+						{% endif %}
 
 					</ul>
 				</div>

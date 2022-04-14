@@ -20,7 +20,7 @@ def get_license():
         print(license_name + ":" + license_href)
         # 将各个协议写入文件
         with open("data/All_license_link.txt", 'a', encoding='utf-8') as f:
-            f.write(license_name + "：" + license_href + "\n")
+            f.write(license_name+ '\t' +license_href + "\n")
         # 由于有些协议名字中含有“/"或者‘”’，文件命名时不能识别，需要进行替换
         if license_name.find('/'):
             license_name = license_name.replace('/', ' ')
