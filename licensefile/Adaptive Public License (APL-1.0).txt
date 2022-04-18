@@ -1,8 +1,3 @@
-Adaptive Public License 1.0
-
-
-spdx short identifier: apl-1.0
-version 1.0
 the licensed work is provided under the terms of this adaptive public license ("license"). any use, reproduction or distribution of the licensed work constitutes recipient's acceptance of this license and its terms, whether or not such recipient reads the terms of this license. "licensed work" and "recipient" are defined below.
 important note: this license is "adaptive", and the generic version or another version of an adaptive public license should not be relied upon to determine your rights and obligations under this license. you must read the specific adaptive public license that you receive with the licensed work, as certain terms are defined at the outset by the initial contributor.
 see section 2.2 below, exhibit a attached, and any suppfile.txt accompanying this license to determine the specific adaptive features applicable to this license. for example, without limiting the foregoing, (a) for selected choice of law and jurisdiction see part 3 of exhibit a; (b) for the selected definition of third party see part 4 of exhibit a; and (c) for selected patent licensing terms (if any) see section 2.2 below and part 6 of exhibit a.

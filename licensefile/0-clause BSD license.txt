@@ -1,10 +1,3 @@
-Zero-Clause BSD (0BSD)
-
-
-
-spdx short identifier: 0bsd
-
-note: despite its name, zero-clause bsd is an alteration of the isc license, and is not textually derived from licenses in the bsd family. zero-clause bsd was originally approved under the name "free public license 1.0.0".
 permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted.
 the software is provided "as is" and the author disclaims all

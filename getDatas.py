@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
+
 # 获取所有许可证的链接以及名字
 def get_license():
     # 包含所有许可证网站的内容解析
